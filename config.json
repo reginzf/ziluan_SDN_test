@@ -1,0 +1,51 @@
+{
+  "agent": {  // 刘波agent配置
+    "host": "172.25.18.188",
+    "port": "19998",
+    "authKey": "NRG"
+  },
+  "ziluan": {
+    "protocol": "http",
+    "ip_addr": "172.25.50.50",
+    "port": "12011",
+    "web_user": "b071238183e5a8",
+    "web_password": "bf67299c88a7eef2",
+    "sql_host": "172.25.50.25",
+    "sql_user": "moove",
+    "sql_password":"unic-moove",
+    "sql_port": "3306",
+    "username":"nrgtest",
+    "target_region_name":"成都基地"
+  },
+  "web_ui": {   // web_ui 配置
+    "host": "0.0.0.0",
+    "port": 10001,
+    "local_interface_address": "172.25.5.51" // 实际使用的接口地址
+  }
+}
+
+//{
+//  "agent": {  // 刘波agent配置
+//    "host": "172.25.18.188",
+//    "port": "19998",
+//    "authKey": "NRG"
+//  },
+//  "ziluan": {
+//    "protocol": "https",
+//    "ip_addr": "150.66.0.253",
+//    "port": "12011",
+//    "web_user": "b071238183e5a8",
+//    "web_password": "bf67299c88a7eef2",
+//    "sql_host": "172.40.150.50",
+//    "sql_user": "moove",
+//    "sql_password":"unic-moove",
+//    "sql_port": "3306",
+//    "username":"nrgtest",
+//    "target_region_name": "杭州节点"
+//  },
+//  "web_ui": {   // web_ui 配置
+//    "host": "127.0.0.1",
+//    "port": 10001,
+//    "local_interface_address": "172.25.1.51" // 实际使用的接口地址
+//  }
+//}

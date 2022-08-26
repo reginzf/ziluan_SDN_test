@@ -1,0 +1,14 @@
+{
+  "authKey": "NRG",
+  "eips": null,
+  "eni": [
+    "eni-fo4mdjs8hqw6",
+    "eni-fo4mdrpcxl0l",
+    "eni-fo4mdrpcxl0k",
+    "eni-fo4md7hlt7tn"
+  ],
+  "ecs": [
+    "ecs-fo4md7hlt7to",
+    "ecs-fo4md7hlt7tr"
+  ]
+}

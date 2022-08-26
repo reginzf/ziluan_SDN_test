@@ -1,0 +1,22 @@
+{
+  "vpc": [
+    // 需要15个
+    "vpc-fo4mdrpcx1ar",
+    "vpc-fo4mdrpcx1aw",
+    "vpc-fo4mdrpcx1a1",
+    "vpc-fo4mdrpcx1a6",
+    "vpc-fo4mdrpcx1bb",
+    "vpc-fo4mdrpcx1bg",
+    "vpc-fo4mdrpcx1bl",
+    "vpc-fo4mdrpcx1bq",
+    "vpc-fo4mdrpcx1bv",
+    "vpc-fo4mdrpcx1b0",
+    "vpc-fo4mdrpcx1b5",
+    "vpc-fo4mdrpcx1ca",
+    "vpc-fo4mdrpcx1cf",
+    "vpc-fo4mdrpcx1ck",
+    "vpc-fo4mdrpcx1cp"
+  ],
+  "N": 3
+  // 新建ccn的数量
+}

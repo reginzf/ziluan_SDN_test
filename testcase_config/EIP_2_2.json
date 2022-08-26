@@ -1,0 +1,19 @@
+{
+  "vpc": "vpc-fo4mdrpcxl0e",
+  "nat": "nat-fh5t1vn5v8zx",
+  "ecs": "ecs-fo4md7hlt7to",
+  "port_pub": "3333",
+  "port_private": "3333",
+  "eip": "eip-fo4md7hlucfq",
+  "stream_cfg": {
+    "serverIp": "172.25.139.99",
+    "serverPort": "2222",
+    "clientIp": "172.25.18.51",
+    "streamType": "udp",
+    "speed": "500",
+    "action": "start",
+    "taskId": "EIP_2_2",
+    "callback": "http://{}:10001/stop_taskset/{}"
+  },
+  "authKey": "NRG"
+}

@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "316080d9-b993-4f66-b771-b165918307fd",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "创建ccn",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "3f730eb2-60a9-4c18-b12a-06b886f6f1ef",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"AvailableZone\": \"d05b228b-c440-11ec-bdda-0cda411d6372\",\r\n    \"Description\": \"aaaaaa\",\r\n    \"InstanceId\": \"ccn-test\",\r\n    \"Name\": \"test\",\r\n    \"Type\": \"ccn.standard.normal\",\r\n    \"UserId\": \"911aa6e2-8ffe-4555-b148-2ac147f3c4de\"\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.25.50.5:40465/uca/network/v3.0/ccn/create",
+					"protocol": "http",
+					"host": [
+						"172",
+						"25",
+						"50",
+						"5"
+					],
+					"port": "40465",
+					"path": [
+						"uca",
+						"network",
+						"v3.0",
+						"ccn",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查询ccn",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"type": "text"
+					},
+					{
+						"key": "x-auth-token",
+						"value": "3f730eb2-60a9-4c18-b12a-06b886f6f1ef",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Code\": \"string\",\r\n  \"Detail\": {},\r\n  \"Message\": \"string\",\r\n  \"Status\": \"string\",\r\n  \"WaitCallback\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://172.25.50.5:40465/uca/network/v3.0/ccn/canDeleteCcn/{ccnId}",
+					"protocol": "http",
+					"host": [
+						"172",
+						"25",
+						"50",
+						"5"
+					],
+					"port": "40465",
+					"path": [
+						"uca",
+						"network",
+						"v3.0",
+						"ccn",
+						"canDeleteCcn",
+						"{ccnId}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "运营平台登录",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"host": true,
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://172.25.50.50:12008",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "http://172.25.50.50:12008",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "172.25.50.50:12008",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "loginState=true",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "zh-CN,zh;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"8d76349094d7b8acffe3\",\"password\":\"ef3177c1d3a0bda3f5\",\"ip\":\"123.93.141.216\",\"city\":\"CHINA\"}"
+				},
+				"url": {
+					"raw": "http://172.25.50.50:12008/api/admin/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"172",
+						"25",
+						"50",
+						"50"
+					],
+					"port": "12008",
+					"path": [
+						"api",
+						"admin",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "管理平台登录",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"user-agent": true,
+					"host": true,
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+						"type": "text"
+					},
+					{
+						"key": "Origin",
+						"value": "http://172.25.50.50:12008",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "http://172.25.50.50:12008",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "172.25.50.50:12008",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "loginState=true",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "zh-CN,zh;q=0.9",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json;charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"8d76349094d7b8acffe3\",\"password\":\"ef3177c1d3a0bda3f5\",\"ip\":\"223.93.141.226\",\"city\":\"CHINA\"}"
+				},
+				"url": {
+					"raw": "http://172.25.50.50:12008/api/admin/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"172",
+						"25",
+						"50",
+						"50"
+					],
+					"port": "12008",
+					"path": [
+						"api",
+						"admin",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

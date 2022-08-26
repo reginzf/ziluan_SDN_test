@@ -1,0 +1,8 @@
+{
+  "authKey": "NRG",
+  "cfw": "cfw-fj10y0kpe9tb",
+  "vpc1": "vpc-fj1xd3v0h6wp",  // nrg-CFW_1_1-1  172.16.0.0/24
+  "ecs1": "ecs-fj2ivrwagxmj",  // nrg-CFW_1_1-1  172.25.131.152
+  "vpc2": "vpc-fj1xd3v0h6xa",  // nrg-CFW_1_1-2  172.16.1.0/24
+  "ecs2": "ecs-fj2ivrwagxm8"  // nrg-CFW_1_1-2  172.25.131.33
+}

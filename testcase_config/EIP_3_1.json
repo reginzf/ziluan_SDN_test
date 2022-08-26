@@ -1,0 +1,17 @@
+{
+  "vpcs": [
+    "vpc-fj2ivb31kk31",
+    "vpc-fj10x4z7min0",
+    "vpc-fj10x4z7min5",
+    "vpc-fj10x4z7mioa",
+    "vpc-fj10x4z7miof",
+    "vpc-fj10x4z7miok",
+    "vpc-fj10x4z7miop",
+    "vpc-fj10x4z7miou",
+    "vpc-fj10x4z7mioz",
+    "vpc-fj10x4z7mio4"
+  ],
+  "nats": [],
+  "eips": [],
+  "authKey": "NRG"
+}

@@ -1,0 +1,18 @@
+{
+  "vpc": "vpc-fo4mdrpcxl0e",
+  "nat": "nat-fo4md7hlucfp",
+  "snat": "snat-fo4mdrpcxxau",
+  "used_eip": "eip-fo4md7hlucfq",
+  "unused_eip": "eip-fo4md7hlucfu",
+  "stream_cfg": {
+    "serverIp": "172.25.18.51",
+    "serverPort": "5001",
+    "clientIp": "192.168.1.3",//¡¨≤ª…œ
+    "streamType": "udp",
+    "speed": "500",
+    "action": "start",
+    "taskId": "EIP_2_3",
+    "callback": "http://{}:10001/stop_taskset/{}"
+  },
+  "authKey": "NRG"
+}
