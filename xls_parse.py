@@ -1,16 +1,20 @@
 # -*- coding: UTF-8 -*-
+import os
 import re
+import time
 from re import IGNORECASE
 import xlrd
-from xlrd.sheet import Sheet
 from xlrd import xldate_as_datetime
+from xlrd.sheet import Sheet
+import xlwt
+from xlwt import Worksheet
 from pyecharts.options import AxisOpts, LabelOpts
 from pyecharts.charts import *
 from collections import defaultdict
 
 SORTED = {"问题单号": "id", "简述": "description", "当前处理人": "cur", "问题修改人": "problem_modifier", "提交日期": "submit_date",
           "提交人": "author", "严重程度": "level", "是否关闭": "closed", "特性": "feature", "子特性": "sub_feature",
-          "子系统": "sub_system", "标签": "tag"}
+          "子系统": "sub_system", "模块": "module", "标签": "tag"}
 PATTERS = {
     "vpc": re.compile(r'(虚拟专有云)|(vpc[^pP])', flags=IGNORECASE),
     "sg": re.compile(r'(安全组)|(sg)', flags=IGNORECASE),
@@ -99,6 +103,7 @@ class Bug:
         self.sub_system = None
         self.tag = None
         self.module = list()
+
         for k, v in self.key_loc.items():
             try:
                 key = SORTED[k]
@@ -109,12 +114,15 @@ class Bug:
         self.parse_module()
 
     def parse_module(self):
-        for k, v in PATTERS.items():
-            self.res = re.search(v, self.description)
-            if self.res:
-                self.module.append(k)
-        if not self.module:
-            self.module.append('其他')
+        if self.module and type(self.module) != list:
+            pass
+        else:
+            for k, v in PATTERS.items():
+                self.res = re.search(v, self.description)
+                if self.res:
+                    self.module.append(k)
+            if not self.module:
+                self.module.append('其他')
 
     def context(self):
         # 输出bug正文，list
@@ -159,7 +167,7 @@ class Result:
         self.__tag_data(bug)
 
     @property
-    def all_bugs(self):
+    def all_bugs(self) -> list:
         return self.fatal + self.serious + self.normal + self.notice
 
     @property
@@ -182,7 +190,7 @@ class Result:
         return {"致命": len(self.fatal), "严重": len(self.serious), "普通": len(self.normal), "提示": len(self.notice)}
 
     def __module_data(self, bug: Bug):
-        if len(bug.module) > 1:
+        if type(bug.module) == list and len(bug.module) > 1:
             # 去重
             score = dict()  # 分数最高的为模块名
             temp = bug.feature + bug.sub_feature + bug.sub_system
@@ -202,8 +210,12 @@ class Result:
             else:
                 print("无法区分模块:", bug.context())
 
-        for m in bug.module:
-            self.module_data[m].append(bug)
+            for m in bug.module:
+                self.module_data[m].append(bug)
+        elif type(bug.module) == list:
+            self.module_data[bug.module[0]].append(bug)
+        else:
+            self.module_data[bug.module].append(bug)
 
     def __author_data(self, bug: Bug):
         self.author_data[bug.author].append(bug)
@@ -214,12 +226,9 @@ class Result:
 
     def __tag_data(self, bug: Bug):
         if bug.tag:
-            for ele in bug.tag.split(' '):
+            for ele in str(bug.tag).split(' '):
                 if ele:
                     self.tag_data[ele].append(bug)
-
-
-
 
 
 class Charts:
@@ -263,14 +272,14 @@ class Charts:
         sorted_data = sorted(data.items(), key=lambda kv: (len(kv[1]), len(kv[0])))
         x_data = [ele[0] for ele in sorted_data]
         y_data = [len(ele[1]) for ele in sorted_data]
-
+        # print('tag_data', x_data, y_data)
         bar = Bar().add_xaxis(x_data).add_yaxis('', y_data)
         bar.set_global_opts(xaxis_opts=AxisOpts(axislabel_opts=LabelOpts(rotate=90)))
         bar.render('tag_chart.html')
 
     def module_chart(self):
-        data = self.result.module_data
-        sorted_data = sorted(data.items(), key=lambda kv: (len(kv[1]), len(kv[0])))
+        sorted_data = sorted(self.result.module_data.items(), key=lambda kv: (len(kv[1]), len(kv[0])))
+
         x_data = [ele[0] for ele in sorted_data]
         y_data = [len(ele[1]) for ele in sorted_data]
 
@@ -279,17 +288,63 @@ class Charts:
         bar.render('module_chart.html')
 
 
+class Write_xls:
+    def __init__(self, xls_filepath, result: Result):
+        self.book = xlwt.Workbook(encoding='utf-8')
+        self.sheet: Worksheet = self.book.add_sheet('问题单')
+        self.bugs = [_.context() for _ in result.all_bugs]
+        self.loc_row = 0
+        self.loc_col = 0
+        self.write_head(list(SORTED.keys()))
+        self.write_xls(self.bugs)
+        self.book.save(xls_filepath)
+
+    def write_xls(self, bugs: list):
+        for i in range(len(bugs)):
+            for j in range(len(bugs[i])):
+                try:
+                    self.sheet.write(i + 1, j, bugs[i][j])
+                except IndexError:
+                    pass
+
+    def write_head(self, key_loc: list):
+        n = len(key_loc)
+        for i in range(n):
+            self.sheet.write(0, i, key_loc[i])
+        self.sheet.write(0, n, '模块')
+        self.sheet.write(0, n + 1, '标签')
+
+
+class ModifiedResult:
+    def __init__(self, result_xls_path):
+        self.p = Parse_xls(result_xls_path)
+        self._result = Result()
+        for b in self.p.bugs:
+            self._result.parase_bug(Bug(b, self.p.key_loc))
+
+        self.chart = Charts(self._result)
+        self.draw_charts()
+
+    @property
+    def result(self):
+        return self._result.all_bugs
+
+    def draw_charts(self):
+        self.chart.level_chart()
+        self.chart.author_chart()
+        self.chart.submit_date_chart()
+        self.chart.tag_chart()
+        self.chart.module_chart()
+
+
 if __name__ == '__main__':
-    pa = Parse_xls('../temp.xls')
+    pa = Parse_xls('aaa.xls')
     result = Result()
     for bug in pa.bugs:
         b = Bug(bug, pa.key_loc)
         result.parase_bug(b)
+    xls_w = Write_xls('result.xls', result)
+    os.system('result.xls')
+    input('请处理无法区分的模块，编辑问题单标签，任意键继续\n')
 
-    chart = Charts(result)
-    chart.level_chart()
-    chart.author_chart()
-    chart.submit_date_chart()
-    chart.tag_chart()
-    chart.module_chart()
-
+    ModifiedResult('result.xls')
